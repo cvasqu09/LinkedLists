@@ -30,11 +30,11 @@ public class LinkedList {
 		numElements++;
 	}
 	
-	public int getTail(){
+	public Node getTail(){
 		if(this.tail == null){
 			throw new IllegalStateException();
 		} else {
-			return this.tail.getVal();
+			return this.tail;
 		}
 	}
 	
@@ -50,11 +50,47 @@ public class LinkedList {
 		
 	}
 	
-	public int getHead(){
+	public Node getHead(){
 		if(this.head == null){
 			throw new IllegalStateException();
 		} else {
-			return this.head.getVal();
+			return head;
+		}
+	}
+	
+	public int getValue(int index){
+		int i = 0;
+		Node temp = head;
+		if(index < 0){
+			return -1;
+		} else if (index >= numElements){
+			return -1;
+		} else {
+			while(i != index){
+				temp = temp.getNext();
+				i++;
+			}
+			return temp.getVal();
+		}
+	}
+	
+	public int getNumElements(){
+		return numElements;
+	}
+	
+	public Node getNode(int index){
+		Node temp = head;
+		int count = 0;
+		if(index < 0){
+			return null;
+		} else if(index >= numElements){
+			return null;
+		} else {
+			while(count != index){
+				temp = temp.getNext();
+				count++;
+			}
+			return temp;
 		}
 	}
 	
@@ -66,16 +102,41 @@ public class LinkedList {
 		}
 	}
 	
-	public void quicksort(LinkedList l, int low, int high){
-		if(low < high){
-			int pivot = partition(l, low, high);
-			quicksort(l, low, pivot);
-			quicksort(l, pivot, high);
+	public void quicksort(int low, int high){
+		if(high >= this.getNumElements()){
+			return;
+		} else if(low < 0){
+			return;
+		} else if(low < high){
+			int pivot = partition(low, high);
+			quicksort(low, pivot-1);
+			quicksort(pivot+1, high);
 		}
 	}
 	
-	public int partition(LinkedList l, int low, int high){
-		int pivot = l.getHead();
+	public int partition(int low, int high){
+		// Choose the last element as the pivot.
+		int pivotValue = this.getNode(high).getVal();
+		int i = low-1;
+		// Starting from the beginning to the second to last element.
+		for(int j = low; j < high; j++){
+			if(this.getValue(j) <= pivotValue){
+				i++;
+				swap(this.getNode(i), this.getNode(j));
+			}
+		}
+		swap(this.getNode(i+1), this.getNode(high));
+		return i+1;
+	}
+	
+	public void swap(Node x, Node y){
+		// Fix by using node value instead of int variables.
+		int temp = x.getVal();
+		x.setVal(y.getVal());;
+		y.setVal(temp);
+	}
+	
+	public void removeDuplicates(){
 		
 	}
 }
