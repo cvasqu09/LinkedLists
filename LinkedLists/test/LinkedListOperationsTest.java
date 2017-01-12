@@ -165,4 +165,32 @@ public class LinkedListOperationsTest {
 		Assert.assertEquals(3, l.getValueAt(1), 0);
 		Assert.assertEquals(5, l.getTail().getVal(), 0);
 	}
+	
+	@Test
+	public void testNthToLastElement_outOfRange(){
+		l.addToTail(4);
+		l.addToTail(5);
+		l.addToTail(6);
+		Assert.assertEquals(-1, l.nthToLastElement(4));
+	}
+	
+	@Test
+	public void testNthToLastElement_getLastElement(){
+		l.addToTail(4);
+		l.addToTail(5);
+		l.addToTail(6);
+		Assert.assertEquals(6, l.nthToLastElement(1));
+	}
+	
+	@Test
+	public void testNthToLastElement_getNthToLastElement(){
+		l.addToHead(34);
+		l.addToTail(4);
+		l.addToTail(5);
+		l.addToTail(6);
+		Assert.assertEquals(34, l.nthToLastElement(4));
+		Assert.assertEquals(4, l.nthToLastElement(3));
+		Assert.assertEquals(5, l.nthToLastElement(2));
+
+	}
 }

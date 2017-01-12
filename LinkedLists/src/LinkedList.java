@@ -167,13 +167,25 @@ public class LinkedList {
 		if(this.getNumElements() <= 1)
 			return;
 		
+		// Sort the list first.
 		this.quicksort(0, this.getNumElements()-1);
 		Node temp = this.getHead();
 		Node tempNext = temp.getNext();
 		while(tempNext != null){
 			if(temp.getVal() == tempNext.getVal()){
-				
+				this.removeVal(temp.getVal());
 			}
+			temp = tempNext;
+			tempNext = temp.getNext();
+			
+		}
+	}
+	
+	public int nthToLastElement(int n){
+		if(n > numElements){
+			return -1;
+		} else {
+			return this.getValueAt(numElements-n);
 		}
 	}
 }
