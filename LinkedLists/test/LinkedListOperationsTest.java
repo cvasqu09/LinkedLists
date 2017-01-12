@@ -97,7 +97,7 @@ public class LinkedListOperationsTest {
 	}
 	
 	@Test
-	public void testRemoveVal_NodeNotInList(){
+	public void testRemoveVal_nodeNotInList(){
 		l.addToHead(4);
 		l.addToHead(5);
 		l.addToHead(3);
@@ -106,7 +106,7 @@ public class LinkedListOperationsTest {
 	}
 	
 	@Test
-	public void testRemoveVal_MiddleElementRemoved(){
+	public void testRemoveVal_middleElementRemoved(){
 		l.addToTail(3);
 		l.addToTail(4);
 		l.addToTail(5);
@@ -117,12 +117,52 @@ public class LinkedListOperationsTest {
 	}
 	
 	@Test
-	public void testRemoveVal_RemoveTail(){
+	public void testRemoveVal_removeTail(){
 		l.addToTail(4);
 		l.addToTail(5);
 		l.addToTail(6);
 		l.removeVal(6);
 		Assert.assertEquals(2, l.getNumElements(), 0);
+		Assert.assertEquals(5, l.getTail().getVal(), 0);
+	}
+	
+	@Test
+	public void testRemoveDuplicates_emptyList(){
+		l.removeDuplicates();
+		Assert.assertEquals(0, l.getNumElements(), 0);
+	}
+	
+	@Test
+	public void testRemoveDuplicates_noDuplicates(){
+		l.addToTail(3);
+		l.addToTail(5);
+		l.addToTail(4);
+		l.removeDuplicates();
+		Assert.assertEquals(3, l.getNumElements(), 0);
+	}
+	
+	@Test
+	public void testRemoveDuplicates_oneDuplicate(){
+		l.addToTail(3);
+		l.addToTail(2);
+		l.addToTail(2);
+		l.removeDuplicates();
+		Assert.assertEquals(2, l.getNumElements(), 0);
+		Assert.assertEquals(2, l.getHead().getVal(), 0);
+		Assert.assertEquals(3, l.getTail().getVal(), 0);
+	}
+	
+	@Test
+	public void testRemoveDuplicates_multipleDuplicates(){
+		l.addToTail(2);
+		l.addToTail(3);
+		l.addToTail(5);
+		l.addToTail(3);
+		l.addToTail(2);
+		l.removeDuplicates();
+		Assert.assertEquals(3, l.getNumElements(), 0);
+		Assert.assertEquals(2, l.getHead().getVal(), 0);
+		Assert.assertEquals(3, l.getValueAt(1), 0);
 		Assert.assertEquals(5, l.getTail().getVal(), 0);
 	}
 }
