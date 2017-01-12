@@ -43,11 +43,38 @@ public class LinkedList {
 			return -1;
 		} else {
 			Node removed = head;
-			head = head.getNext();
+			if(head == tail){
+				head = tail = null;
+			} else {
+				head = head.getNext();
+			}
 			numElements--;
 			return removed.getVal();
 		}
-		
+	}
+	
+	// Removes first occurrence of 'val'.
+	public void removeVal(int val){
+		if(this.getHead() == null){
+			throw new IllegalStateException();
+		} else if(this.getHead().getVal() == val){
+			this.removeHead();
+		} else {
+			Node temp = this.getHead();
+			while(temp.getNext() != null){
+				if(temp.getNext().getVal() == val){
+					// If the tail is going to be deleted then adjust the tail pointer.
+					if(temp.getNext() == tail){
+						tail = temp;
+					}
+					temp.setNext(temp.getNext().getNext());
+					numElements--;
+					return;
+				} else {
+					temp = temp.getNext();
+				}
+			}
+		}
 	}
 	
 	public Node getHead(){
@@ -58,7 +85,7 @@ public class LinkedList {
 		}
 	}
 	
-	public int getValue(int index){
+	public int getValueAt(int index){
 		int i = 0;
 		Node temp = head;
 		if(index < 0){
@@ -120,7 +147,7 @@ public class LinkedList {
 		int i = low-1;
 		// Starting from the beginning to the second to last element.
 		for(int j = low; j < high; j++){
-			if(this.getValue(j) <= pivotValue){
+			if(this.getValueAt(j) <= pivotValue){
 				i++;
 				swap(this.getNode(i), this.getNode(j));
 			}
@@ -137,6 +164,16 @@ public class LinkedList {
 	}
 	
 	public void removeDuplicates(){
+		if(this.getNumElements() <= 1)
+			return;
 		
+		this.quicksort(0, this.getNumElements()-1);
+		Node temp = this.getHead();
+		Node tempNext = temp.getNext();
+		while(tempNext != null){
+			if(temp.getVal() == tempNext.getVal()){
+				
+			}
+		}
 	}
 }

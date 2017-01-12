@@ -95,7 +95,34 @@ public class LinkedListOperationsTest {
 		l.removeVal(2);
 		Assert.assertEquals(0, l.getNumElements(), 0);
 	}
-
 	
-
+	@Test
+	public void testRemoveVal_NodeNotInList(){
+		l.addToHead(4);
+		l.addToHead(5);
+		l.addToHead(3);
+		l.removeVal(38);
+		Assert.assertEquals(3, l.getNumElements(), 0);
+	}
+	
+	@Test
+	public void testRemoveVal_MiddleElementRemoved(){
+		l.addToTail(3);
+		l.addToTail(4);
+		l.addToTail(5);
+		l.removeVal(4);
+		Assert.assertEquals(2, l.getNumElements(), 0);
+		Assert.assertEquals(3, l.getHead().getVal(), 0);
+		Assert.assertEquals(5, l.getTail().getVal(), 0);
+	}
+	
+	@Test
+	public void testRemoveVal_RemoveTail(){
+		l.addToTail(4);
+		l.addToTail(5);
+		l.addToTail(6);
+		l.removeVal(6);
+		Assert.assertEquals(2, l.getNumElements(), 0);
+		Assert.assertEquals(5, l.getTail().getVal(), 0);
+	}
 }
